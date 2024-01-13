@@ -1,0 +1,8 @@
+.venv
+.env
+venv
+env
+db.sqlite3
+.DS_store
+.vscode
+.idea
