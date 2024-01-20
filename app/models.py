@@ -41,6 +41,7 @@ class Notification(models.Model):
     timestamp = models.DateTimeField(auto_now_add=True)
 
 
+
 site.register(District)
 site.register(User)
 site.register(Clinic)
