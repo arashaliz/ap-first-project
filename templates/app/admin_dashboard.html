@@ -1,0 +1,67 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <h2>Welcome, Admin!</h2>
+
+  <h3>Current Appointments</h3>
+  <table>
+    <thead>
+      <tr>
+        <th>Date and Time</th>
+        <th>Doctor</th>
+        <th>Patient</th>
+        <th>Status</th>
+        <th>Action</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for appointment in current_appointments %}
+        <tr>
+          <td>{{ appointment.date_time }}</td>
+          <td>{{ appointment.room.user.username }}</td>
+          <td>{{ appointment.user.username }}</td>
+          <td>{{ appointment.status }}</td>
+          <td>
+            {% if appointment.status == 'Reserved' %}
+              <form action="{% url 'cancel_appointment' %}" method="post">
+                {% csrf_token %}
+                <input type="hidden" name="appointment_id" value="{{ appointment.id }}">
+                <button type="submit">Cancel</button>
+              </form>
+            {% else %}
+              N/A
+            {% endif %}
+          </td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+
+  <h3>Update Clinic Capacity</h3>
+  <form action="{% url 'update_clinic_capacity' %}" method="post" id="update-capacity-form">
+    {% csrf_token %}
+    <label for="clinic-id">Clinic ID:</label>
+    <input type="text" id="clinic-id" name="clinic_id" required>
+    <label for="new-capacity">New Capacity:</label>
+    <input type="number" id="new-capacity" name="new_capacity" required>
+    <button type="submit">Update Capacity</button>
+  </form>
+
+  <h3>Flask API Database</h3>
+  <table>
+    <thead>
+      <tr>
+        <th>Clinic ID</th>
+        <th>Remaining Slots</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for clinic_id, remaining_slots in database.items %}
+        <tr>
+          <td>{{ clinic_id }}</td>
+          <td>{{ remaining_slots }}</td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+{% endblock %}
