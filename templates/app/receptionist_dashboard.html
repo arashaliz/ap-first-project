@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+
+{% block title %}Clinic Reservation System - Home{% endblock %}
+
+{% block content %}
+    <h1>Your Appointments</h1>
+
+    <h2>Future Appointments</h2>
+    {% if future_appointments %}
+        <ul>
+            {% for appointment in future_appointments %}
+                <li>{{ appointment.date }} - {{ appointment.clinic.name }}</li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>No future appointments.</p>
+    {% endif %}
+
+    <h2>Previous Appointments</h2>
+    {% if previous_appointments %}
+        <ul>
+            {% for appointment in previous_appointments %}
+                <li>{{ appointment.date_time }} - {{ appointment.clinic.name }}</li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>No previous appointments.</p>
+    {% endif %}
+
+    <a href="{% url 'new_reservation' %}">New reservation</a>
+{% endblock %}

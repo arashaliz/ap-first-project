@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+
+{% block title %}Clinic Reservation System - New Reservation{% endblock %}
+
+{% block content %}
+    <h1>New Reservation Page</h1>
+
+    <form method="get" action="{% url 'new_reservation' %}">
+    {% csrf_token %}
+        <label for="search">Search:</label>
+        <input type="text" id="search" name="q" value="{{ search_query }}">
+        <button type="submit">Search</button>
+    </form>
+
+    <h2>Clinics</h2>
+    {% if clinics %}
+        <ul>
+            {% for clinic in clinics %}
+                <li><a href="{% url 'available_times' clinic.id%}">{{ clinic.name }}</a></li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>No clinics found.</p>
+    {% endif %}
+
+    {% endblock %}

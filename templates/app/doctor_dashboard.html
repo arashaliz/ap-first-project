@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+
+{% block title %}Doctor Dashboard{% endblock %}
+
+{% block content %}
+  <h2>Welcome, Dr. {{ user.username }}!</h2>
+  <p>Doctor Dashboard</p>
+
+  {% for appointment in appointments %}
+    <p>{{ appointment.date_time }} - {{ appointment.status }}</p>
+  {% endfor %}
+
+{% endblock %}
