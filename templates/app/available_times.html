@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+
+{% block title %}Available Times{% endblock %}
+
+{% block content %}
+  <h2>Available Times</h2>
+  <ul>
+    {% for time in available_times %}
+      <li>
+        {{ time }}
+        <form method="POST" action="/reserve-time/">
+          {% csrf_token %}
+          <input type="hidden" name="time" value="{{ time }}">
+          <input type="hidden" name="clinic_id" value="{{ clinic_id }}">
+          <button type="submit">Reserve</button>
+        </form>
+      </li>
+    {% endfor %}
+  </ul>
+{% endblock %}  
